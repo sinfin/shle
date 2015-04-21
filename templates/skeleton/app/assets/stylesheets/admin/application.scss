@@ -1,0 +1,12 @@
+//= require font-awesome
+//= require_tree .
+//= require_self
+
+@import "bootstrap-sprockets";
+@import "./modules/bootstrap-variables";
+@import "bootstrap";
+@import "compass/css3";
+
+body {
+  margin-top: 70px;
+}

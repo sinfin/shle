@@ -1,0 +1,9 @@
+partial 'partials/navbar'
+
+.container-fluid
+  .row
+    = outlet
+
+= outlet 'modal'
+
+= render 'flash' flash

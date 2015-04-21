@@ -1,0 +1,119 @@
+require 'mina/bundler'
+require 'mina/rails'
+require 'mina/git'
+
+set :appname, '<%= app_name %>'
+set :domain, '1.2.3.4'
+set :deploy_to, "/home/rails/#{appname}"
+set :repository, 'git@bitbucket.org:Sinfin/<%= app_name %>.git'
+set :branch, 'master'
+
+
+# Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
+# They will be linked in the 'deploy:link_shared_paths' step.
+set :shared_paths, ['config/database.yml', 'log','public/system','.env']
+
+set :user, 'rails'
+set :forward_agent, true     # SSH forward_agent.
+
+task :environment do
+end
+
+# Put any custom mkdir's in here for when `mina setup` is ran.
+# For Rails apps, we'll make some of the shared paths that are shared between
+# all releases.
+task :setup => :environment do
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
+
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/sockets"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/sockets"]
+
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/pids"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/pids"]
+
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config"]
+
+  queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
+
+  queue! %[touch "#{deploy_to}/#{shared_path}/.env"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/.env'."]
+
+  # TODO: make config/database.yml and .env in production shared
+end
+
+desc "Deploys the current version to the server."
+task :deploy => :environment do
+  deploy do
+    # Put things that will set up an empty directory into a fully set-up
+    # instance of your project.
+    invoke :'git:clone'
+    invoke :'deploy:link_shared_paths'
+    invoke :'bundle:install'
+    invoke :'rails:db_migrate'
+    invoke :'rails:assets_precompile'
+    invoke :'deploy:cleanup'
+
+    to :launch do
+      invoke :'unicorn:restart'
+      queue "bundle exec whenever -w"
+    end
+  end
+end
+
+namespace :install do
+
+  task :upstart do
+    queue "cd #{appname}/#{current_path}; pwd; sudo bundle exec foreman export upstart /etc/init -a #{appname} -d `pwd` -u #{user}"
+    queue "sudo chmod 600 /etc/init/#{appname}-web-1.conf"
+  end
+
+  task :nginx do
+    queue "sudo rm -f /etc/nginx/sites-enabled/#{appname}.conf"
+    queue "sudo ln -s ~/#{appname}/current/config/deploy/nginx.conf /etc/nginx/sites-enabled/#{appname}.conf"
+    queue 'sudo service nginx restart'
+    queue "sudo restart #{appname}"
+  end
+
+end
+
+namespace :unicorn do
+
+  task :start do
+    queue "sudo start #{appname}"
+  end
+
+  task :restart do
+    queue "sudo restart #{appname}"
+  end
+
+  task :stop do
+    queue "sudo stop #{appname}"
+  end
+
+end
+
+
+namespace :log do
+  task :app do
+    queue! "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
+  end
+
+  task :unicorn do
+    queue! "tail -f #{deploy_to}/#{shared_path}/log/unicorn.log"
+  end
+
+  task :nginx do
+    queue! "sudo tail -f /var/log/nginx/#{appname}-error.log"
+  end
+end
+
+
+# For help in making your deploy script, see the Mina documentation:
+#
+#  - http://nadarei.co/mina
+#  - http://nadarei.co/mina/tasks
+#  - http://nadarei.co/mina/settings
+#  - http://nadarei.co/mina/helpers

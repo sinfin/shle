@@ -1,0 +1,10 @@
+.page-header
+  = link_to admin_users_path, :class => 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  h1
+    | New 
+    | admin_user
+
+= simple_form_for(@user, url: admin_users_path , :html => { :class => "form-horizontal", :role => "form" }) do |f|
+  = render partial: 'form', locals: { f: f }

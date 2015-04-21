@@ -1,0 +1,4 @@
+.jumbotron.text-center
+  h2
+    ' Loading {{fa 'cog' 'fa-spin'}}
+
