@@ -21,7 +21,8 @@ module Shle
       generate.helper false
       generate.assets false
       generate.view_specs false
-      generate.template_engine :slim
+      generate.template_engine false
+      # generate.template_engine :slim
     end
       RUBY
 

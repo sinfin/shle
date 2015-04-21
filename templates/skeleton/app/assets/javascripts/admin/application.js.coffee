@@ -11,6 +11,7 @@
 #= require_tree ./adapters
 #= require_tree ./mixins
 #= require_tree ./models
+#= require ./controllers/object_controller
 #= require_tree ./controllers
 #= require_tree ./views
 #= require_tree ./helpers
@@ -23,4 +24,8 @@ $ ->
   # HACK - all template names will lose its /admin prefix
   Barbecue.removeTemplatePrefix /^admin\//
 
+Barbecue.CONTENT_LOCALES = ['cs','en']
+
 window.Admin = Ember.Application.create()
+
+
