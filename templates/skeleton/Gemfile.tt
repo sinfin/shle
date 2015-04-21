@@ -47,7 +47,7 @@ gem 'emblem-source', git:'https://github.com/machty/emblem.js.git', tag: '0.4.0'
 gem "barber-emblem", github: "simcha/barber-emblem"
 gem "ember-source", "1.9.1"
 gem "ember-data-source", "1.0.0.beta.12"
-gem "barbecue", github: "HakubJozak/barbecue", tag: '0.2'
+gem "barbecue", github: "HakubJozak/barbecue", branch: 'master'
 
 # Admin assets
 gem 'bootstrap-sass', '~> 3.3.4'
