@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+require 'pathname'
+
+APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
+
+Dir.chdir APP_ROOT do
+
+
+  # make sure Node.js is on path
+  raise 'Node.js missing' unless system 'npm -v'
+
+  puts "== Installing dependencies =="
+  system "gem install bundler --conservative"
+  system "bundle check || bundle install"
+
+  puts "\n== Copying sample files =="
+  system "cp .env.sample .env" unless File.exist?(".env")
+
+
+  puts "\n== Preparing database =="
+  if File.exist?('db/schema.db')
+    system "bin/rake db:setup"
+  else
+    system "bin/rake db:create db:migrate db:seed"    
+  end
+
+  puts "\n== Removing old logs and tempfiles =="
+  system "rm -f log/*"
+  system "rm -rf tmp/cache"
+
+  puts "\n== Installing bower libraries =="
+  Dir.chdir 'vendor/assets/javascripts' do
+    system 'bower install'
+  end
+
+  # puts "\n== Restarting application server =="
+  # system "touch tmp/restart.txt"
+end

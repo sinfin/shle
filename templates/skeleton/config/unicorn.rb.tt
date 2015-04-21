@@ -1,3 +1,4 @@
+# -*- mode: ruby -*-
 # https://devcenter.heroku.com/articles/rails-unicorn
 
 if ENV['RACK_ENV'] == 'production'
@@ -14,7 +15,7 @@ if ENV['RACK_ENV'] == 'production'
 
   FileUtils.mkdir_p "#{shared_dir}/tmp/sockets"
   listen "#{shared_dir}/tmp/sockets/unicorn.sock", :backlog => 64
-  listen 8080, :tcp_nopush => true
+  listen <%= server_port %>, :tcp_nopush => true
   FileUtils.mkdir_p "#{shared_dir}/tmp/pids"
   pid "#{shared_dir}/tmp/pids/unicorn.pid"
 
@@ -52,5 +53,5 @@ if ENV['RACK_ENV'] == 'production'
   end
 else
   worker_processes 1
-  listen 3009
+  listen <%= dev_port %>
 end

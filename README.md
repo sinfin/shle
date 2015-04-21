@@ -1,4 +1,4 @@
-# SHLE (Sinfin's Heavily Light Establisher)
+# SHLE (Sinfin Heavily Light Establisher)
 
 Application generator inspired by Suspenders and based on Rails generators.
 

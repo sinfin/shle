@@ -1,0 +1,13 @@
+box: wercker/rvm@2.5.0
+services:
+  - wercker/postgresql
+ 
+build:
+  steps:
+    - rails-database-yml
+    - rvm-use:
+        version: 2.1.5
+    - bundle-install
+    - script:
+        name: tests
+        code: bundle exec rake test
