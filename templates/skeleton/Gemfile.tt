@@ -59,6 +59,7 @@ group :development do
   gem 'spring'
   gem 'mina'
   gem 'faker'
+  gem 'droplet_kit'
 end
 
 group :test do
