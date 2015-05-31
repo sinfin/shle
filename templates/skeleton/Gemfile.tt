@@ -12,6 +12,7 @@ gem "active_model_serializers", "0.9.3"
 gem "slim-rails"
 gem 'kaminari'
 gem 'devise'
+gem 'devise-i18n'
 gem "ancestry"
 gem 'acts_as_list'
 gem 'acts-as-taggable-on', '~> 3.4'
