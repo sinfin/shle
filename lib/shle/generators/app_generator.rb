@@ -13,7 +13,7 @@ module Shle
     desc: "Skip turbolinks gem"
 
     class_option :skip_bundle, type: :boolean, aliases: "-B", default: true,
-      desc: "Don't run bundle install"    
+      desc: "Don't run bundle install"
 
     def finish_template
       super
@@ -22,6 +22,9 @@ module Shle
       remove_file 'app/views/layouts/application.html.erb'
 
       directory 'skeleton', '.'
+      copy_file 'config/environments/production.rb', 'config/environments/staging.rb'
+      copy_file '.env', 'config/deploy/production/.env'
+      copy_file '.env', 'config/deploy/staging/.env'
 
       build :config_application_rb
     end
@@ -35,7 +38,7 @@ module Shle
     def dev_port
       options[:port]
     end
-    
+
     def get_builder_class
       Shle::AppBuilder
     end

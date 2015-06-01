@@ -1,57 +1,57 @@
+# -*- coding: utf-8 -*-
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'active_support'
-require 'droplet_kit'
 require 'yaml'
 
+require_relative 'deploy/utils'
+require_relative 'deploy/digital_ocean'
+
 set :appname, '<%= app_name %>'
+set :dbname, appname.gsub("-", "_")
 set :droplet_name, 'www.example.com' # Please, fill primary domain
-set :domain, '1.2.3.4'
-set :deploy_to, "/home/rails/#{appname}"
 set :repository, 'git@bitbucket.org:Sinfin/<%= app_name %>.git'
 set :branch, 'master'
-begin
-  droplet_conf = YAML.load_file "config/droplet.yml"
-  set :domain, droplet_conf[:ipv4]
-rescue
-  set :domain, "0.0.0.0"
+
+
+task :production do
+  begin
+    droplet_conf = YAML.load_file "config/droplet.yml"
+    set :domain, droplet_conf[:ipv4]
+  rescue
+    set :domain, "0.0.0.0"
+  end
+
+  set :rails_env, 'production'
+  set :deploy_to, "/home/rails/#{appname}"
 end
 
 
-# Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
-# They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.yml', 'log','public/system','.env']
+task :staging do
+  set :rails_env, 'staging'
+  set :domain, "staging.sinfin.io"
+  set :deploy_to, "/home/rails/#{appname}"
+end
 
+
+set :shared_paths, ['log','public/system','.env']
 set :user, 'rails'
-set :forward_agent, true     # SSH forward_agent.
+set :forward_agent, true
 
 task :environment do
 end
 
-# Put any custom mkdir's in here for when `mina setup` is ran.
-# For Rails apps, we'll make some of the shared paths that are shared between
-# all releases.
+
 task :setup => :environment do
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
-
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/sockets"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/sockets"]
-
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/pids"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/pids"]
-
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config"]
-
-  queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
-  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
-
-  queue! %[touch "#{deploy_to}/#{shared_path}/.env"]
-  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/.env'."]
-
-  # TODO: make config/database.yml and .env in production shared
+  create_shared_dir 'log'
+  create_shared_dir 'tmp/sockets'
+  create_shared_dir 'tmp/pids'
+  create_shared_dir 'config'
+  create_shared_dir 'public/system'
+  # upload "config/deploy/#{rails_env}/database.yml", "#{deploy_to}/#{shared_path}/config/database.yml"
+  # upload "config/deploy/#{rails_env}/secrets.yml", "#{deploy_to}/#{shared_path}/config/secrets.yml"
+  upload "config/deploy/#{rails_env}/.env", "#{deploy_to}/#{shared_path}/.env"
 end
 
 desc "Deploys the current version to the server."
@@ -67,30 +67,37 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'unicorn:restart'
-      queue "bundle exec whenever -w"
+      invoke :'unicorn:start_or_restart'
+      # queue "bundle exec whenever -w"
     end
   end
 end
 
 namespace :install do
+  task :create_droplet do
+    create_droplet(primary_domain)
+  end
+
+  task :create_db do
+    cmd = "psql -d template1 --host=10.133.186.96 --username=#{dbname} -password -c 'CREATE DATABASE #{dbname}_#{rails_env}'"
+    `#{cmd}`
+  end
 
   task :upstart do
-    queue "cd #{appname}/#{current_path}; pwd; sudo bundle exec foreman export upstart /etc/init -a #{appname} -d `pwd` -u #{user}"
-    queue "sudo chmod 600 /etc/init/#{appname}-web-1.conf"
+    foreman_export
+    foreman_upload
   end
 
   task :nginx do
-    queue "sudo rm -f /etc/nginx/sites-enabled/#{appname}.conf"
-    queue "sudo ln -s ~/#{appname}/current/config/deploy/nginx.conf /etc/nginx/sites-enabled/#{appname}.conf"
+    queue "sudo rm -f /etc/nginx/sites-enabled/default"
+    sudo_upload './config/deploy/nginx.conf', "/etc/nginx/sites-enabled/#{appname}.conf"
     queue 'sudo service nginx restart'
-    queue "sudo restart #{appname}"
   end
 
 end
 
-namespace :unicorn do
 
+namespace :unicorn do
   task :start do
     queue "sudo start #{appname}"
   end
@@ -99,15 +106,30 @@ namespace :unicorn do
     queue "sudo restart #{appname}"
   end
 
+  task :start_or_restart do
+    status = capture "sudo status #{appname}"
+
+    if status.strip == "#{appname} stop/waiting"
+      puts 'Cold start triggered'
+      invoke :'unicorn:start'
+    else
+      puts 'Restart triggered'
+      invoke :'unicorn:restart'
+    end
+  end
+
   task :stop do
     queue "sudo stop #{appname}"
   end
-
 end
 
 
 namespace :log do
   task :app do
+    queue! "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
+  end
+
+  task :upstart do
     queue! "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
   end
 
@@ -117,45 +139,6 @@ namespace :log do
 
   task :nginx do
     queue! "sudo tail -f /var/log/nginx/#{appname}-error.log"
-  end
-end
-
-namespace :create do
-
-  task :droplet => :environment do
-
-    # FIXME: update
-    image_id = 11397076
-
-    client = DropletKit::Client.new(access_token: ENV.fetch("DIGITAL_OCEAN_TOKEN"))
-
-    if client.droplets.all.collect{|droplet| droplet if droplet.name == droplet_name }.compact.size == 0
-
-      ssh_keys = client.ssh_keys.all.map{|key| key.id}
-      droplet_new = DropletKit::Droplet.new(name: droplet_name, region: 'ams3', image: image_id, size: '512mb', ipv6: true, private_networking: true, ssh_keys: ssh_keys)
-
-      puts "Creating new droplet…"
-      droplet = client.droplets.create(droplet_new)
-
-      while droplet.networks.v4.size == 0
-        putc "."; sleep 1
-        droplet = client.droplets.find(id: droplet.id)
-      end
-
-      droplet_conf = {}
-      droplet_conf[:ipv4] = droplet.networks.v4.first.ip_address
-      droplet_conf[:ipv6] = droplet.networks.v6.first.ip_address
-      droplet_conf[:domain] = droplet_name
-
-      # TODO Setup private network
-
-      # Write down conf
-      File.open("config/droplet.yml", 'w') { |f| YAML.dump(droplet_conf, f) }
-      puts "Done! Please check the file config/droplet.yml"
-
-    else
-      puts "Failure! Droplet already exists."
-    end
   end
 end
 
