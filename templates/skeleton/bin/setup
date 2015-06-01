@@ -4,8 +4,6 @@ require 'pathname'
 APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
 
 Dir.chdir APP_ROOT do
-
-
   # make sure Node.js is on path
   raise 'Node.js missing' unless system 'npm -v'
 
@@ -15,6 +13,8 @@ Dir.chdir APP_ROOT do
 
   puts "\n== Copying sample files =="
   system "cp .env.sample .env" unless File.exist?(".env")
+  system '.env', 'config/deploy/production/.env'
+  system '.env', 'config/deploy/staging/.env'
 
   if ARGV.first == 'barbecue'
     puts 'Linking barbecue gem to local directory'
@@ -26,7 +26,7 @@ Dir.chdir APP_ROOT do
   if File.exist?('db/schema.db')
     system "bin/rake db:setup"
   else
-    system "bin/rake db:create db:migrate db:seed"    
+    system "bin/rake db:create db:migrate db:seed"
   end
 
   puts "\n== Removing old logs and tempfiles =="
@@ -40,4 +40,7 @@ Dir.chdir APP_ROOT do
 
   # puts "\n== Restarting application server =="
   # system "touch tmp/restart.txt"
+
+  
+
 end

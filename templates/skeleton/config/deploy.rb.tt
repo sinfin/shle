@@ -9,7 +9,7 @@ require_relative 'deploy/utils'
 require_relative 'deploy/digital_ocean'
 
 set :appname, '<%= app_name %>'
-set :dbname, appname.gsub("-", "_")
+set :db_name, '<%= app_name %>'
 set :droplet_name, 'www.example.com' # Please, fill primary domain
 set :repository, 'git@bitbucket.org:Sinfin/<%= app_name %>.git'
 set :branch, 'master'
@@ -79,8 +79,10 @@ namespace :install do
   end
 
   task :create_db do
-    cmd = "psql -d template1 --host=10.133.186.96 --username=#{dbname} -password -c 'CREATE DATABASE #{dbname}_#{rails_env}'"
-    `#{cmd}`
+    if rails_env == 'production'              
+      cmd = "psql -d template1 --host=10.133.186.96 --username=#{appname} -password -c 'CREATE DATABASE #{appname}_#{rails_env}'"
+      run cmd
+    end
   end
 
   task :upstart do

@@ -23,8 +23,6 @@ module Shle
 
       directory 'skeleton', '.'
       copy_file 'config/environments/production.rb', 'config/environments/staging.rb'
-      copy_file '.env', 'config/deploy/production/.env'
-      copy_file '.env', 'config/deploy/staging/.env'
 
       build :config_application_rb
     end
