@@ -2,6 +2,17 @@ class Admin::BaseController < ApplicationController
   before_action :authenticate_user!
   layout 'admin'
 
+  def default_format_json
+    if request.headers["HTTP_ACCEPT"].nil? && params[:format].nil?
+      request.format = "json"
+    end
+  end
+
+  # def render_error(model)
+  #   full = model.errors.full_messages.join('. ')
+  #   render json: { errors: model.errors }, status: 422
+  # end
+
   def pagination_info(scope)
     {}
     # {
@@ -12,5 +23,5 @@ class Admin::BaseController < ApplicationController
     #   current_page: current_page
     # }
   end
-  
+
 end

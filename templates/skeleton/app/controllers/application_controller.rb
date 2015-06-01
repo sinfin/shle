@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  layout :admin_or_application
+  layout :devise_or_application
 
-  def admin_or_application
+  def devise_or_application
     if devise_controller?
       'devise'
     else
