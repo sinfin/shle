@@ -1,0 +1,74 @@
+cs:
+  date:
+    formats:
+      default:
+        "%m. %d. %Y"
+      with_weekday:
+        "%a %m. %d. %y"
+
+  time:
+    formats:
+      default:
+        "%a, %b %-d, %Y at %r"
+      date:
+        "%b %-d, %Y"
+      short:
+        "%B %d"
+  terms:
+    medical_examination: Lékařské vyšetření
+    laboratory_examination: Laboratorní vyšetření
+    clinic_study: Klinické studie
+    more_clinic_study: další klinické studie
+    search: Hledat
+    online_reservation: on-line rezercace
+    more_about_services: Více o našich službách
+    our_medics: Naši lékaři
+    show_all_medics: Zobrazit všechny lékaře
+    certification: Cerifikace
+    news: Aktuality
+    news_archive: archiv aktualit
+    learn_more: číst více
+    book_online: Objednat online
+    book_examination_online: Rezervujte si vyšetření on-line
+    book_labor_examination_online: Rezervujte si laboratorní vyšetření on-line
+    full_menu: Celá nabídka lékařských vyšetření
+    full_labor_menu: Celá nabídka laboratorních vyšetření
+    prevent_examination: Preventivní prohlídky
+    targeted_examination: Cílená vyšetření (nemoci)
+    others: Ostatní
+
+  meta:
+    back_to_home: Zpět na homepage
+    read_more: Číst více
+    more: více
+    phone: Tel.
+    more_on: Více na
+    error_404:
+      title: 404 error
+      text: Stránka nenalezena
+    error_500:
+      title: 500 error
+      text: Ou, nastala chyba
+    error_422:
+      title: 422 error
+      text: TODO
+  nav:
+    home: Úvodní strana
+    service: Služby
+    examinations: Lékařská vyšetření
+    clinic_study: Klinické studie
+    medics: Lékaři
+    contact: Kontakt
+    switch_lang:
+      title: English
+      link: /en
+    faq: Časté dotazy – FAQ
+    search: Hledat
+
+  footer:
+    medical_reservation: On-line rezervace lékařského vyšetření
+    laboratory_reservation: On-line rezervace laboratorního vyšetření
+
+  link:
+    book_lab: http://www.mc-praha.cz/laboratorni-vysetreni
+    book_doctor: http://www.mc-praha.cz/extranet
