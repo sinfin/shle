@@ -3,6 +3,9 @@ require 'rails/generators/rails/app/app_generator'
 
 module Shle
   class AppGenerator < Rails::Generators::AppGenerator
+    class_option :domain, type: :string, required: true,
+    desc: "Primary production domain (used for droplet name)"
+
     class_option :port, type: :string, aliases: "-P", required: true,
     desc: "Development port of the application"
 
@@ -29,6 +32,10 @@ module Shle
 
     protected
 
+    def primary_domain
+      options[:primary_domain]      
+    end
+
     def server_port
       options[:port].to_i + 5000
     end
@@ -37,6 +44,15 @@ module Shle
       options[:port]
     end
 
+    def staging_aws_secret_access_key
+      ENV['STAGING_AWS_SECRET_ACCESS_KEY'] || '?????'
+    end
+
+    def staging_aws_key_id
+      ENV['STAGING_AWS_KEY_ID'] || '?????'
+    end
+
+    
     def get_builder_class
       Shle::AppBuilder
     end

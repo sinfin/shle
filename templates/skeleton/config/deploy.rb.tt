@@ -4,25 +4,18 @@ require 'mina/rails'
 require 'mina/git'
 require 'active_support'
 require 'yaml'
+require 'last_mile'
 
-require_relative 'deploy/utils'
-require_relative 'deploy/digital_ocean'
+include LastMile
 
 set :appname, '<%= app_name %>'
 set :db_name, '<%= app_name %>'
-set :droplet_name, 'www.example.com' # Please, fill primary domain
 set :repository, 'git@bitbucket.org:Sinfin/<%= app_name %>.git'
 set :branch, 'master'
 
 
 task :production do
-  begin
-    droplet_conf = YAML.load_file "config/droplet.yml"
-    set :domain, droplet_conf[:ipv4]
-  rescue
-    set :domain, "0.0.0.0"
-  end
-
+  set :primary_domain, <%= primary_domain %>
   set :rails_env, 'production'
   set :deploy_to, "/home/rails/#{appname}"
 end

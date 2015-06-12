@@ -4,7 +4,7 @@
 *.swp
 /.bundle
 /.env
-/config/deploy/.env
+/config/deploy/*/.env
 /.foreman
 /coverage/*
 /db/*.sqlite3

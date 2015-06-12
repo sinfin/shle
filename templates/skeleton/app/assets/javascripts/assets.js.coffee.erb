@@ -1,11 +1,13 @@
 <%
 files = {}
 Dir.chdir("#{Rails.root}/app/assets/") do
-  path = 'jwplayer-skins/five.xml'
-  files[path] = asset_path(path)
+  Dir['images/**/*'].each do |path|
+    file = path.dup
+    path.slice! 'images/'
+    files[file] = image_path(path)
+  end
 end
 %>
 
-window.assets_path = (name) ->
+window.asset_path = (name) ->
   <%= files.to_json %>[name]
-
