@@ -25,7 +25,7 @@ module Shle
       remove_file 'app/views/layouts/application.html.erb'
 
       directory 'skeleton', '.'
-      copy_file 'config/environments/production.rb', 'config/environments/staging.rb'
+      template 'config/environments/production.rb.tt', 'config/environments/staging.rb'
 
       build :config_application_rb
     end
