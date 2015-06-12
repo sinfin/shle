@@ -1,0 +1,30 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: <%= app_name %>_development
+
+test:
+  <<: *default
+  database: <%= app_name %>_test
+
+staging:
+  <<: *default
+  database: <%= app_name %>_staging
+
+production:
+  username: <%= db_user_from_env %>
+  password: <%= db_password_from_env %>
+  adapter: postgresql
+  host: 10.133.186.96
+  database: <%= app_name %>_production
+  encoding: utf8
+  collation: cs_CZ.UTF8 
+  min_messages: warning
+  pool: 2
+  timeout: 5000
+
+

@@ -44,6 +44,14 @@ module Shle
       options[:port]
     end
 
+    def db_user_from_env
+      %{ENV["#{app_name.underscore.upcase}_DB_USER"]}
+    end
+
+    def db_password_from_env
+      %{ENV["#{app_name.underscore.upcase}_DB_PASSWORD"]}
+    end
+    
     def staging_aws_secret_access_key
       ENV['STAGING_AWS_SECRET_ACCESS_KEY'] || '?????'
     end
