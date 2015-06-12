@@ -26,6 +26,19 @@ $ ->
 
 Barbecue.CONTENT_LOCALES = ['cs','en']
 
-window.Admin = Ember.Application.create()
+window.Admin = Ember.Application.create(
+#  LOG_TRANSITIONS: true, 
+#  LOG_TRANSITIONS_INTERNAL: true
+  LOG_VIEW_LOOKUPS: true
+#  LOG_ACTIVE_GENERATION: true
+#  LOG_RESOLVER: true
+)
+
+# quite slow, enable when desperate
+# Ember.run.backburner.DEBUG = true;
+
+# turn on promise failure debugging
+Ember.RSVP.on 'error', (error) ->
+Ember.Logger.assert(false, error);
 
 
