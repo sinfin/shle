@@ -1,4 +1,4 @@
-box: wercker/rvm@2.5.0
+box: wercker/rvm@3.0.0
 services:
   - wercker/postgresql
  
@@ -6,7 +6,7 @@ build:
   steps:
     - rails-database-yml
     - rvm-use:
-        version: 2.1.5
+        version: 2.1.6
     - bundle-install
     - script:
         name: tests
