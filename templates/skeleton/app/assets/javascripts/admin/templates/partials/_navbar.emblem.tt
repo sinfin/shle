@@ -12,11 +12,10 @@ nav.navbar.navbar-default.navbar-fixed-top role="navigation"
 
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar
-        link-li
-          link-to 'Tags' 'tags'
+        = partial 'partials/menu'
         li
           form.navbar-form
-            = view 'select' contentBinding='localeOptions' valueBinding='contentLocale' class="form-control" optionValuePath="content.code" optionLabelPath="content.label"
+            render 'content_locale'
             '
             .btn-group
               button.btn.btn-success.dropdown-toggle data-toggle="dropdown"
