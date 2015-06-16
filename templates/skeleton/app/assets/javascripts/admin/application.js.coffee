@@ -17,6 +17,7 @@
 #= require_tree ./helpers
 #= require_tree ./components
 #= require_tree ./templates
+#= require ./routes/base_route
 #= require_tree ./routes
 #= require ./router
 
@@ -27,7 +28,7 @@ $ ->
 Barbecue.CONTENT_LOCALES = ['cs','en']
 
 window.Admin = Ember.Application.create(
-#  LOG_TRANSITIONS: true, 
+#  LOG_TRANSITIONS: true,
 #  LOG_TRANSITIONS_INTERNAL: true
   LOG_VIEW_LOOKUPS: true
 #  LOG_ACTIVE_GENERATION: true
@@ -40,5 +41,3 @@ window.Admin = Ember.Application.create(
 # turn on promise failure debugging
 Ember.RSVP.on 'error', (error) ->
 Ember.Logger.assert(false, error);
-
-
