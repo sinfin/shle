@@ -1,5 +1,2 @@
 # -*- coding: utf-8 -*-
-User.delete_all
-
-User.create! email: 'admin@sinfin.cz', password: 'password'
-puts "Created #{User.count} user(s)."
+User.find_or_create_by(email: 'admin@sinfin.cz') { |u| u.password = 'password' }
