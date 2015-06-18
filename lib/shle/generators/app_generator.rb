@@ -44,22 +44,28 @@ module Shle
       options[:port]
     end
 
-    def db_user_from_env
-      %{ENV["#{app_name.underscore.upcase}_DB_USER"]}
-    end
-
-    def db_password_from_env
-      %{ENV["#{app_name.underscore.upcase}_DB_PASSWORD"]}
+    def staging_s3_bucket
+      fetch_env('STAGING_S3_BUCKET_NAME')
     end
     
-    def staging_aws_secret_access_key
-      ENV['STAGING_AWS_SECRET_ACCESS_KEY'] || '?????'
-    end
-
     def staging_aws_key_id
-      ENV['STAGING_AWS_KEY_ID'] || '?????'
+      fetch_env('STAGING_AWS_KEY_ID')
     end
 
+    def staging_aws_secret_access_key
+      fetch_env('STAGING_AWS_SECRET_ACCESS_KEY')
+    end
+
+    private
+
+    def fetch_env_erb(key)
+      "<%= ENV['#{key}'] %>"
+    end
+    
+    def fetch_env(key)
+      raise "Add #{key} into your environment and re-run the script" unless ENV.has_key?(key)
+      ENV[key]
+    end
     
     def get_builder_class
       Shle::AppBuilder

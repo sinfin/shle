@@ -16,8 +16,8 @@ staging:
   database: <%= app_name %>_staging
 
 production:
-  username: <%= db_user_from_env %>
-  password: <%= db_password_from_env %>
+  username: <%= fetch_env_erb "#{app_name.underscore.upcase}_DB_USER" %>
+  password: <%= fetch_env_erb "#{app_name.underscore.upcase}_DB_PASSWORD" %>
   adapter: postgresql
   host: 10.133.186.96
   database: <%= app_name %>_production
