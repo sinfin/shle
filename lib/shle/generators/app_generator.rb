@@ -33,7 +33,7 @@ module Shle
     protected
 
     def primary_domain
-      options[:domain]      
+      options[:domain]
     end
 
     def server_port
@@ -47,9 +47,9 @@ module Shle
     def staging_s3_bucket
       fetch_env('STAGING_S3_BUCKET_NAME')
     end
-    
-    def staging_aws_key_id
-      fetch_env('STAGING_AWS_KEY_ID')
+
+    def staging_aws_access_key_id
+      fetch_env('STAGING_AWS_ACCESS_KEY_ID')
     end
 
     def staging_aws_secret_access_key
@@ -61,12 +61,12 @@ module Shle
     def fetch_env_erb(key)
       "<%= ENV['#{key}'] %>"
     end
-    
+
     def fetch_env(key)
       raise "Add #{key} into your environment and re-run the script" unless ENV.has_key?(key)
       ENV[key]
     end
-    
+
     def get_builder_class
       Shle::AppBuilder
     end
@@ -111,6 +111,6 @@ module Shle
     # end
 
   end
-  
+
 
 end
