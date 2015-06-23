@@ -12,7 +12,7 @@ Dir.chdir APP_ROOT do
   system "bundle check || bundle install"
 
   puts "\n== Copying sample files =="
-  system "erb .env.sample .env" unless File.exist?(".env")  
+  system "erb .env.sample > .env" unless File.exist?(".env")
 
   if ARGV.first == 'barbecue'
     puts 'Linking barbecue gem to local directory'
