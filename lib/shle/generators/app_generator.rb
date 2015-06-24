@@ -28,6 +28,10 @@ module Shle
       template 'config/environments/production.rb.tt', 'config/environments/staging.rb'
 
       build :config_application_rb
+
+      environment nil, env: 'development' do
+        'config.middleware.use Rails::Rack::LogTailer'
+      end
     end
 
     protected
@@ -99,16 +103,8 @@ module Shle
     end
       RUBY
 
-      inject_into_class "config/application.rb", "Application", config
+      application config
     end
-
-    protected
-
-    # def env(key)
-    #   unless ENV[key].presence
-    #     raise "Missing environment variable "
-    #   end
-    # end
 
   end
 
