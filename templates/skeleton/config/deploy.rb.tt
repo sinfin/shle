@@ -15,7 +15,7 @@ set :branch, 'master'
 
 
 task :production do
-  set :primary_domain, <%= primary_domain %>
+  set :primary_domain, '<%= primary_domain %>'
   set :rails_env, 'production'
   set :deploy_to, "/home/rails/#{appname}"
 end
@@ -72,7 +72,7 @@ namespace :install do
   end
 
   task :create_db do
-    if rails_env == 'production'              
+    if rails_env == 'production'
       cmd = "psql -d template1 --host=10.133.186.96 --username=#{appname} -password -c 'CREATE DATABASE #{appname}_#{rails_env}'"
       run cmd
     end
