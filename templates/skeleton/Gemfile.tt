@@ -64,6 +64,7 @@ group :development do
   gem 'mina'
   gem 'faker'
   gem 'droplet_kit'
+  gem 'last-mile', git: 'https://bitbucket.org/Sinfin/last-mile', branch: 'master'
 end
 
 group :test do

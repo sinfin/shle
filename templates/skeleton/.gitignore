@@ -5,6 +5,7 @@
 /.bundle
 /.env
 /config/deploy/*/.env
+/config/deploy/*/*.conf
 /.foreman
 /coverage/*
 /db/*.sqlite3
@@ -14,5 +15,3 @@
 /public/sitemap.*
 /tags
 /tmp/*
-
-
