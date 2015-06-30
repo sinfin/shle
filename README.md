@@ -20,7 +20,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add AWS credentials to your .profile.
+
+```
+export STAGING_AWS_KEY_ID=TODO
+export STAGING_AWS_SECRET_ACCESS_KEY=TODO
+```
+
+Generate new application.
+
+```
+shle APP_NAME --domain www.domain.name --port 3020
+```
 
 ## Contributing
 
