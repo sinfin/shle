@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  mount Barbecue::Engine => "/admin"    
+  
   namespace :admin do
     root 'dashboard#index'
     get '/' => 'dashboard#index', as: :user_root_path
-
-    resource :upload, only: [:show]
 
     # has to be below 'devise_for :users'
     resources :users
