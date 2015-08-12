@@ -42,4 +42,4 @@ window.Admin = Ember.Application.create(
 
 # turn on promise failure debugging
 Ember.RSVP.on 'error', (error) ->
-Ember.Logger.assert(false, error);
+  Ember.Logger.assert(false, error);
