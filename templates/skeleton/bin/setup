@@ -24,7 +24,7 @@ Dir.chdir APP_ROOT do
   if File.exist?('db/schema.db')
     system "bin/rake db:setup"
   else
-    system "bin/rake db:create db:migrate db:seed"
+    system "bin/rake db:create db:schema:load db:seed"
   end
 
   puts "\n== Removing old logs and tempfiles =="
