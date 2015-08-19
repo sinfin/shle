@@ -38,14 +38,7 @@ end
 
 
 task :setup => :environment do
-  create_shared_dir 'log'
-  create_shared_dir 'tmp/sockets'
-  create_shared_dir 'tmp/pids'
-  create_shared_dir 'config'
-  create_shared_dir 'public/system'
-  # upload "config/deploy/#{rails_env}/database.yml", "#{deploy_to}/#{shared_path}/config/database.yml"
-  # upload "config/deploy/#{rails_env}/secrets.yml", "#{deploy_to}/#{shared_path}/config/secrets.yml"
-  upload "config/deploy/#{rails_env}/.env", "#{deploy_to}/#{shared_path}/.env"
+  # Don't write here any call
 end
 
 desc "Deploys the current version to the server."
@@ -70,6 +63,17 @@ end
 namespace :install do
   task :create_droplet do
     create_droplet(primary_domain)
+  end
+
+  task :env => :environment do
+    create_shared_dir 'log'
+    create_shared_dir 'tmp/sockets'
+    create_shared_dir 'tmp/pids'
+    create_shared_dir 'config'
+    create_shared_dir 'public/system'
+    # upload "config/deploy/#{rails_env}/database.yml", "#{deploy_to}/#{shared_path}/config/database.yml"
+    # upload "config/deploy/#{rails_env}/secrets.yml", "#{deploy_to}/#{shared_path}/config/secrets.yml"
+    upload "config/deploy/#{rails_env}/.env", "#{deploy_to}/#{shared_path}/.env"
   end
 
   task :create_db do
