@@ -131,10 +131,6 @@ namespace :log do
     queue! "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
   end
 
-  task :upstart do
-    queue! "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
-  end
-
   task :unicorn do
     queue! "tail -f #{deploy_to}/#{shared_path}/log/unicorn.log"
   end
