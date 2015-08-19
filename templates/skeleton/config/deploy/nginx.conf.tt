@@ -9,7 +9,7 @@ upstream <%= app_name %>_app_server { server 127.0.0.1:<%= server_port %> fail_t
 server {
   listen   80;
   root /home/rails/<%= app_name %>/current/public;
-  server_name www.example.com;
+  server_name <%= app_name %>.test.sinfin.io <%= primary_domain %>;
 
   index index.htm index.html;
 
