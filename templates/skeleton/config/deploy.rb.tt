@@ -80,6 +80,8 @@ namespace :install do
     if rails_env == 'production'
       cmd = "psql -d template1 --host=10.133.186.96 --username=#{appname} -password -c 'CREATE DATABASE #{appname}_#{rails_env}'"
       run cmd
+    elsif rails_env == 'staging'
+      queue echo_cmd %{sudo -u postgres psql -d template1 -c "create database #{appname}_#{rails_env};"}
     end
   end
 
