@@ -30,7 +30,7 @@ module Shle
       build :config_application_rb
 
       environment nil, env: 'development' do
-        'config.middleware.use Rails::Rack::LogTailer'
+        'config.logger = Logger.new(STDOUT)'
       end
     end
 
