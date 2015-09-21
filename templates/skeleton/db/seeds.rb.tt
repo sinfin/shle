@@ -1,0 +1,2 @@
+# -*- coding: utf-8 -*-
+User.find_or_create_by(email: 'admin@sinfin.cz') { |u| u.password = '<%= fetch_env "SHLE_DEFAULT_PASSWORD" %>' }
