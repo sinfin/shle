@@ -10,6 +10,14 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  # Sidekiq for authenticated
+  require 'sidekiq/web'
+  # TODO: authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
+
   mount Barbecue::Engine => "/admin"
 
   namespace :admin do

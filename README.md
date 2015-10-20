@@ -23,8 +23,10 @@ Or install it yourself as:
 Add AWS credentials to your .profile.
 
 ```
+export DIGITAL_OCEAN_TOKEN=TODO
 export STAGING_AWS_KEY_ID=TODO
 export STAGING_AWS_SECRET_ACCESS_KEY=TODO
+export SHLE_DEFAULT_PASSWORD=TODO
 ```
 
 Generate new application.

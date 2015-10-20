@@ -101,9 +101,16 @@ module Shle
       generate.template_engine false
       # generate.template_engine :slim
     end
+
+    # Sidekiq
+    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_name_prefix = "#{ app_name }"
+
       RUBY
 
       application config
+
+
     end
 
   end

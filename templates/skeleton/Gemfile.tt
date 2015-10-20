@@ -22,6 +22,8 @@ gem 'whenever', :require => false
 gem 'redcarpet'
 gem 'traco'
 gem 'dotenv-rails'
+gem 'sidekiq'
+gem 'sinatra', :require => nil
 
 # Assets
 gem "font-awesome-rails"

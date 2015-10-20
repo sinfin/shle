@@ -1,0 +1,10 @@
+---
+:concurrency: 1
+
+production:
+  :concurrency: 2
+
+:queues:
+  - [ <%= app_name %>_critical, 4 ]
+  - [ <%= app_name %>_default, 2 ]
+  - [ <%= app_name %>_slow, 1 ]
