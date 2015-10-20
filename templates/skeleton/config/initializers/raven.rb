@@ -1,4 +1,4 @@
-if Rails.env.production?
+if Rails.env.production? || Rails.env.staging?
   require 'raven'
 
   Raven.configure do |config|
