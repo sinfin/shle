@@ -3,22 +3,23 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'active_support'
+require 'fileutils'
 require 'yaml'
 require 'last_mile'
 
 include LastMile
 
+set :primary_domain, '<%= primary_domain %>'
 set :appname, '<%= app_name %>'
 set :db_name, '<%= app_name %>'
 set :repository, 'git@bitbucket.org:Sinfin/<%= app_name %>.git'
-set :branch, 'master'
 
 
 task :production do
-  set :primary_domain, '<%= primary_domain %>'
   set :domain, droplet_config.fetch(:ipv4)
   set :rails_env, 'production'
   set :deploy_to, "/home/rails/#{appname}"
+  set :branch, 'master'
 end
 
 
@@ -26,10 +27,11 @@ task :staging do
   set :rails_env, 'staging'
   set :domain, "staging.sinfin.io"
   set :deploy_to, "/home/rails/#{appname}"
+  set :branch, 'master'
 end
 
 
-set :shared_paths, ['log','public/system','.env']
+set :shared_paths, ['log','public/system','.env', 'tmp']
 set :user, 'rails'
 set :forward_agent, true
 
@@ -76,10 +78,17 @@ namespace :install do
     upload "config/deploy/#{rails_env}/.env", "#{deploy_to}/#{shared_path}/.env"
   end
 
+  task :fetch_config => :environment do
+    dir = "config/deploy/#{rails_env}"
+    FileUtils.mkdir_p(dir)
+    download "#{deploy_to}/#{shared_path}/.env", dir
+    download "#{deploy_to}/#{shared_path}/config/database.yml", dir
+    download "#{deploy_to}/#{shared_path}/config/secrets.yml", dir
+  end
+
   task :create_db do
     if rails_env == 'production'
-      cmd = "psql -d template1 --host=10.133.186.96 --username=#{appname} -password -c 'CREATE DATABASE #{appname}_#{rails_env}'"
-      run cmd
+      create_production_db
     elsif rails_env == 'staging'
       queue echo_cmd %{sudo -u postgres psql -d template1 -c "create database #{appname}_#{rails_env};"}
     end
