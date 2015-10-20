@@ -41,7 +41,7 @@ module Shle
     end
 
     def server_port
-      options[:port].to_i + 5000
+      options[:port].to_i
     end
 
     def dev_port

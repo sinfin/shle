@@ -1,27 +1,23 @@
 # -*- mode: ruby -*-
 # https://devcenter.heroku.com/articles/rails-unicorn
 
-if ENV['RACK_ENV'] == 'production'
-  worker_processes 2
+env = ENV['RACK_ENV'].to_sym
 
+if [ :production, :staging ].include?(env)
   app_dir = File.expand_path('../../', __FILE__)
-  shared_dir = File.expand_path('../../../shared/', __FILE__)
 
   preload_app true
-  timeout 120
+  timeout 60
 
   working_directory app_dir
   user "rails"
 
-  FileUtils.mkdir_p "#{shared_dir}/tmp/sockets"
-  listen "#{shared_dir}/tmp/sockets/unicorn.sock", :backlog => 64
-  listen <%= server_port %>, :tcp_nopush => true
-  FileUtils.mkdir_p "#{shared_dir}/tmp/pids"
-  pid "#{shared_dir}/tmp/pids/unicorn.pid"
+  FileUtils.mkdir_p "./tmp/sockets"
+  FileUtils.mkdir_p "./tmp/pids"
+  pid "./tmp/pids/unicorn.pid"
 
-  stderr_path "#{app_dir}/log/unicorn.log"
-  stdout_path "#{app_dir}/log/unicorn.log"
-
+  stderr_path "log/unicorn.log"
+  stdout_path "log/unicorn.log"
 
   before_fork do |_server, _worker|
     Signal.trap "TERM" do
@@ -51,7 +47,19 @@ if ENV['RACK_ENV'] == 'production'
   before_exec do |server|
     ENV['BUNDLE_GEMFILE'] = "#{app_dir}/Gemfile"
   end
-else
+end
+
+
+case env
+when :production
+  worker_processes 2
+  listen "./tmp/sockets/unicorn.sock", :backlog => 64
+  listen <%= server_port %>, :tcp_nopush => true
+when :staging
   worker_processes 1
   listen <%= dev_port %>
+else
+  worker_processes 1
+  listen '0.0.0.0:<%= dev_port %>'
+  timeout 999999
 end
