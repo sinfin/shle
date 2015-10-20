@@ -1,2 +1,13 @@
 # -*- coding: utf-8 -*-
 User.find_or_create_by(email: 'admin@sinfin.cz') { |u| u.password = '<%= fetch_env "SHLE_DEFAULT_PASSWORD" %>' }
+
+# Add photo
+def add_photo (instance, image_source)
+  instance.update_attribute(:image_id, Image.create!(source_url: image_source, title_cs: Faker::Lorem.sentence(5 + Random.rand(10))).id )
+end
+
+
+# 5.times { |i|
+#  instance = Model.create!(title_cs: Faker::Lorem.sentence(6), published_at: Time.now)
+#  add_photo(instance, 'http://placehold.it/1200x800.png')
+# }
