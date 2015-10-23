@@ -1,7 +1,7 @@
 {
-  "name": "javascripts",
+  "name": "<%= app_name %>",
   "version": "1.24.0",
-  "homepage": "https://github.com/sinfin/suspenders",
+  "homepage": "https://github.com/sinfin/shle",
   "authors": [
     "Sinfin <dev@sinfin.cz>"
   ],
@@ -14,8 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "3.3.3",
-    "jquery": "~1.10.2",
+    "bootstrap-sass": "3.3.5",
+    "jquery": "~1.11.3",
     "modernizr": "~2.8.3"
   }
 }
