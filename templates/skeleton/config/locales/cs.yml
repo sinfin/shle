@@ -72,3 +72,8 @@ cs:
   link:
     book_lab: http://www.mc-praha.cz/laboratorni-vysetreni
     book_doctor: http://www.mc-praha.cz/extranet
+
+  cookie_consent:
+    message: Při poskytování služeb nám pomáhají soubory cookie. Používáním naších služeb vyjadřujete souhlas s naším používáním souborů cookie. 
+    dismiss: OK
+    learnMore: Více informací
