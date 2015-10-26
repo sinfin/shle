@@ -1,9 +1,9 @@
-#= require "bower_components/jquery/jquery.js"
-#= require "bower_components/modernizr/modernizr.js"
+#= require jquery/dist/jquery.js
+#= require modernizr/modernizr.js
 #
-#= require "bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"
-#= require "bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"
-#= require "bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"
+#= require bootstrap-sass/assets/javascripts/bootstrap/dropdown.js
+#= require bootstrap-sass/assets/javascripts/bootstrap/collapse.js
+#= require bootstrap-sass/assets/javascripts/bootstrap/transition.js
 #
 #
 #= require ./assets

@@ -1,15 +1,5 @@
 doctype html
-/[if lt IE 7]
-  | <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7">
-/[if IE 7]
-  | <html class="no-js lt-ie10 lt-ie9 lt-ie8">
-/[if IE 8]
-  | <html class="no-js lt-ie10 lt-ie9">
-/[if IE 9]
-  | <html class="no-js lt-ie10">
-| <!--[if (gt IE 9)|!(IE)]<!-->
-html.nojs
-  | <!--<![endif]-->
+html lang=I18n.locale
   head
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
@@ -19,9 +9,13 @@ html.nojs
     meta name="viewport" content="width=device-width, initial-scale=1"
 
     = stylesheet_link_tag 'application', media: 'all'
-    = javascript_include_tag 'application'
 
   body
     section#content
       == yield
+
     = render partial: 'partials/ga'
+    = render partial: 'partials/browser_update'
+    = render partial: 'partials/cookie_consent'
+
+    = javascript_include_tag 'application'
