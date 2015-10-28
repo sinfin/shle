@@ -57,7 +57,7 @@ task :deploy => :environment do
 
     to :launch do
       invoke :'unicorn:start_or_restart'
-      # queue "bundle exec whenever -w"
+      queue "bundle exec whenever -w --set environment=#{rails_env}"
     end
   end
 end
