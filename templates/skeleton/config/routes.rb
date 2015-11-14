@@ -17,14 +17,4 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-
-  mount Barbecue::Engine => "/admin"
-
-  namespace :admin do
-    root 'dashboard#index'
-    get '/' => 'dashboard#index', as: :user_root_path
-
-    # has to be below 'devise_for :users'
-    resources :users
-  end
 end
