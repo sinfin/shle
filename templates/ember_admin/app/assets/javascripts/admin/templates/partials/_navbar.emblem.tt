@@ -1,0 +1,24 @@
+nav.navbar.navbar-default.navbar-fixed-top role="navigation"
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"
+        span.sr-only
+          | Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link-to 'application' class='navbar-brand'
+       ' <%= app_name.capitalize %>
+
+    #navbar.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar
+        = partial 'partials/menu'
+        li
+          form.navbar-form
+            render 'content_locale'
+
+      ul.nav.navbar-nav.navbar.navbar-right
+        li
+          a href='/admin/users' Users
+        li
+          a href='/users/sign_out' Sign Out

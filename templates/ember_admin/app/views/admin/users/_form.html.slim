@@ -1,0 +1,16 @@
+- if @user.errors.any?
+  .alert.alert-danger.alert-dismissable role="alert"
+    button.close type="button" data-dismiss="alert"
+      span aria-hidden="true"
+        | &times;
+      span.sr-only
+        | Close
+    h4= "#{pluralize(@user.errors.count,"error")} prohibited this admin_user from being saved:"
+    ul
+      - @user.errors.full_messages.each do |msg|
+        li= msg
+.form-group
+  = f.input :email, placeholder: 'user@domain.com'
+  = f.input :password, hint: 'Heslo by mělo být alespoň 8 znaků dlouhé a obsahovat speciální znaky.'
+  = f.input :password_confirmation, hint: 'Zopakujte heslo.'
+  = f.button :submit
