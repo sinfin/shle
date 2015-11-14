@@ -40,12 +40,12 @@ module Shle
       options[:domain]
     end
 
-    def server_port
+    def production_port
       options[:port].to_i
     end
 
     def dev_port
-      options[:port]
+      options[:port].to_i
     end
 
     def staging_s3_bucket
@@ -65,6 +65,8 @@ module Shle
     def fetch_env_erb(key)
       "<%= ENV['#{key}'] %>"
     end
+
+    alias :fetch_env_erb :fetch_env_for_erb
 
     def fetch_env(key)
       raise "Add #{key} into your environment and re-run the script" unless ENV.has_key?(key)

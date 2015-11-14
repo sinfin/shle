@@ -1,4 +1,4 @@
-upstream <%= app_name %>_app_server { server 127.0.0.1:<%= server_port %> fail_timeout=0; }
+upstream <%= app_name %>_app_server { server 127.0.0.1:<%= production_port %> fail_timeout=0; }
 
 # TODO: Uncomment - redirect to www subdomain
 # server {
