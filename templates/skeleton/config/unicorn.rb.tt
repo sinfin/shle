@@ -1,6 +1,5 @@
 # -*- mode: ruby -*-
 # https://devcenter.heroku.com/articles/rails-unicorn
-
 env = ENV['RACK_ENV'].to_sym
 
 if [ :production, :staging ].include?(env)
@@ -54,7 +53,7 @@ case env
 when :production
   worker_processes 2
   listen "./tmp/sockets/unicorn.sock", :backlog => 64
-  listen <%= server_port %>, :tcp_nopush => true
+  listen <%= production_port %>, :tcp_nopush => true
 when :staging
   worker_processes 1
   listen <%= dev_port %>

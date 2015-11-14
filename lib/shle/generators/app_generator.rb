@@ -66,7 +66,7 @@ module Shle
       "<%= ENV['#{key}'] %>"
     end
 
-    alias :fetch_env_erb :fetch_env_for_erb
+    alias :fetch_env_for_erb :fetch_env_erb
 
     def fetch_env(key)
       raise "Add #{key} into your environment and re-run the script" unless ENV.has_key?(key)
