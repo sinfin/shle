@@ -12,5 +12,3 @@ Shle::AppGenerator.source_root templates_root
 Shle::AppGenerator.source_paths << Rails::Generators::AppGenerator.source_root << templates_root
 
 Shle::AppGenerator.start
-
-

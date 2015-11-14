@@ -32,6 +32,10 @@ module Shle
       environment nil, env: 'development' do
         'config.logger = Logger.new(STDOUT)'
       end
+
+      if yes?("'#{app_name}' was generated. Do you want to run bin/setup?")
+	system 'bin/setup'
+      end
     end
 
     protected
