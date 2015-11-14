@@ -30,7 +30,7 @@ gem "font-awesome-rails"
 gem "compass-rails"
 gem "autoprefixer-rails"
 gem 'sprockets', '2.11.0'
-gem 'sass-rails', '~> 4.0'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
@@ -63,7 +63,7 @@ group :development do
   gem "bundler-audit", require: false
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  gem 'mina'
+  gem 'capistrano-rails'
   gem 'faker'
   gem 'droplet_kit'
   gem 'last-mile', git: 'https://github.com/sinfin/last-mile', branch: 'master'
