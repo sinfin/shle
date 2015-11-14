@@ -83,13 +83,11 @@ module Shle
 
     def config_application_rb
       config = <<-RUBY
-    config.time_zone = 'Prague'
 
+    config.time_zone = 'Prague'
     config.i18n.available_locales = [:cs, :en]
     config.i18n.default_locale = :cs
 
-    config.ember.app_name = 'Admin'
-    config.ember.ember_path = 'app/assets/javascripts/admin'
     config.autoload_paths += Dir["\#{config.root}/lib/**/"]
 
     config.generators do |generate|
@@ -113,6 +111,13 @@ module Shle
       application config
 
 
+    end
+
+    def ember_admin
+      code = """
+    config.ember.app_name = 'Admin'
+    config.ember.ember_path = 'app/assets/javascripts/admin'
+      """
     end
 
   end

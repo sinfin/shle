@@ -1,1 +1,0 @@
-= view 'select' contentBinding='localeOptions' valueBinding='current' class="form-control" optionValuePath="content.code" optionLabelPath="content.label"
