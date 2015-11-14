@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Add AWS credentials to your .profile.
+Add credentials to your .profile.
 
 ```
 export DIGITAL_OCEAN_TOKEN=TODO
@@ -29,11 +29,25 @@ export STAGING_AWS_SECRET_ACCESS_KEY=TODO
 export SHLE_DEFAULT_PASSWORD=TODO
 ```
 
-Generate new application.
+Generate new `blog` application by
 
 ```
-shle APP_NAME --domain www.domain.name --port 3020
+shle blog --domain www.blog.com --port 3020
 ```
+
+## Advanced Usage
+
+Shle is building on top of a normal Rails generator so you can supply
+any valid Rails app template to it. For example this one
+
+`build :ember_admin`
+
+will give you a basi Ember admin skeleton. Use it by invoking:
+
+```
+shle blog --domain www.blog.com --port 3020 -m ./my_template.rb
+```
+
 
 ## Contributing
 

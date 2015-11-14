@@ -39,6 +39,7 @@ module Shle
       """
 
       ember_gems = <<-RUBY
+
 # Ember
 # BEWARE: higher versions of ember-rails may break Emblem compilation
 gem 'ember-rails', '0.16.2'
@@ -47,9 +48,11 @@ gem 'emblem-source', git:'https://github.com/machty/emblem.js.git', tag: '0.4.0'
 gem "barber-emblem", github: "simcha/barber-emblem"
 gem "ember-source", "1.9.1"
 gem "ember-data-source", "1.0.0.beta.12"
+
 RUBY
 
       routes = <<-RUBY
+
   mount Barbecue::Engine => "/admin"
 
   namespace :admin do
@@ -59,11 +62,12 @@ RUBY
     # has to be below 'devise_for :users'
     resources :users
   end
+
 RUBY
 
       application(config)
-      gemfile(ember_gems)
-      insert_into_file 'config/routes.rb', before: /end$/
+      insert_into_file 'Gemfile', ember_gems, before: /\z/
+      insert_into_file 'config/routes.rb', routes, before: /end\n\z/
       directory 'ember_admin', '.'
     end
 
