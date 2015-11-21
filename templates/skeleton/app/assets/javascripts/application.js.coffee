@@ -1,5 +1,4 @@
 #= require jquery/dist/jquery.js
-#= require modernizr/modernizr.js
 #
 #= require bootstrap-sass/assets/javascripts/bootstrap/dropdown.js
 #= require bootstrap-sass/assets/javascripts/bootstrap/collapse.js
