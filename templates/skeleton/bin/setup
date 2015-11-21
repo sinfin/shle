@@ -32,9 +32,10 @@ Dir.chdir APP_ROOT do
   system "rm -rf tmp/cache"
 
   puts "\n== Installing bower libraries =="
-  Dir.chdir 'vendor/assets' do
-    system 'bin/bower install'
-  end
+  # Dir.chdir 'vendor/assets' do
+  system 'chmod +x bin/bower'
+  system 'bin/bower install'
+  # end
 
   # puts "\n== Restarting application server =="
   # system "touch tmp/restart.txt"
