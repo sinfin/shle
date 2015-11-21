@@ -8,6 +8,7 @@
 #= require ./assets
 #
 #= require_self
+#= require turbolinks
 
 $ ->
   console.log 'This is where your coffee is made. Find me in app/assets/application.js.coffee.'

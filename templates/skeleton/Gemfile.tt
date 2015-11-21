@@ -25,6 +25,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'activeadmin', github: 'activeadmin'
+gem 'turbolinks'
 
 # Assets
 gem "font-awesome-rails"
