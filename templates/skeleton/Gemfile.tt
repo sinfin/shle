@@ -24,6 +24,7 @@ gem 'dotenv-rails'
 gem 'friendly_id', '~> 5.1.0'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
+gem 'activeadmin', github: 'activeadmin'
 
 # Assets
 gem "font-awesome-rails"
@@ -60,6 +61,7 @@ group :development do
   gem 'faker'
   gem 'droplet_kit'
   gem 'last-mile', git: 'https://github.com/sinfin/last-mile', branch: 'master'
+  gem 'letter_opener'
 end
 
 group :test do
