@@ -22,6 +22,30 @@ is [purposefully excluded from the project's `Gemfile`][exclude].
 [foreman]: https://github.com/ddollar/foreman
 [exclude]: https://github.com/ddollar/foreman/pull/437#issuecomment-41110407
 
+## Deploy project to staging
+
+1/ Comment :launch section in deploy.rb.
+2/ Adjust deploy.rb setting, repo and shared_path.
+3/ Execute install commands steb by step:
+
+```
+mina staging setup
+mina staging install:env
+mina staging install:create_db
+mina staging deploy # We need deployed code!
+mina staging rake[db:seed] # If needed...
+mina staging install:upstart
+mina staging unicorn:start # Monitor in another console with $mina staging log:unicorn
+mina staging install:nginx
+open http://<%= app_name %>.test.sinfin.io
+```
+
+4/ Uncomment :launch section in deploy.rb for normal deploy schema.
+
+```
+mina staging deploy
+```
+
 ## Guidelines
 
 Use the following guides for getting things done, programming well, and
