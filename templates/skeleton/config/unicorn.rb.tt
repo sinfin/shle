@@ -13,7 +13,7 @@ if [ :production, :staging ].include?(env)
 
   FileUtils.mkdir_p "./tmp/sockets"
   FileUtils.mkdir_p "./tmp/pids"
-  pid "./tmp/pids/unicorn.pid"
+  # FIXME: pid "./tmp/pids/unicorn.pid"
 
   stderr_path "log/unicorn.log"
   stdout_path "log/unicorn.log"
@@ -52,7 +52,7 @@ end
 case env
 when :production
   worker_processes 2
-  listen "./tmp/sockets/unicorn.sock", :backlog => 64
+  # FIXME: listen "./tmp/sockets/unicorn.sock", :backlog => 64
   listen <%= production_port %>, :tcp_nopush => true
 when :staging
   worker_processes 1
