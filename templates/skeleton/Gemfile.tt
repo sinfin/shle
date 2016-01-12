@@ -61,6 +61,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'faker'
   gem 'droplet_kit'
+  gem 'mina'
   gem 'last-mile', git: 'https://github.com/sinfin/last-mile', branch: 'master'
   gem 'letter_opener'
 end
