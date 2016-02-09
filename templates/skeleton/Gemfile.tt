@@ -26,6 +26,7 @@ gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'activeadmin', github: 'activeadmin'
 gem 'turbolinks'
+gem 'nprogress-rails'
 
 # Assets
 gem "font-awesome-rails"

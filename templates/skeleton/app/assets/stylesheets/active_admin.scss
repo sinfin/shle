@@ -15,3 +15,8 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+// has_one using has_many - hide the add button
+.has_one_wrap {
+  fieldset ~ a.button.has_many_add, ~ a.button.has_many_add { display: none; }
+}

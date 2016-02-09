@@ -34,6 +34,7 @@ Dir.chdir APP_ROOT do
   puts "\n== Installing bower libraries =="
   # Dir.chdir 'vendor/assets' do
   system 'chmod +x bin/bower'
+  system 'chmod +x bin/sprites'
   system 'bin/bower install'
   # end
 

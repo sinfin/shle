@@ -1,14 +1,11 @@
 #= require jquery/dist/jquery.js
 #
-#= require bootstrap-sass/assets/javascripts/bootstrap/dropdown.js
-#= require bootstrap-sass/assets/javascripts/bootstrap/collapse.js
-#= require bootstrap-sass/assets/javascripts/bootstrap/transition.js
-#
+#= require turbolinks
+#= require nprogress
+#= require nprogress-turbolinks
 #
 #= require ./assets
 #
 #= require_self
-#= require turbolinks
 
-$ ->
-  console.log 'This is where your coffee is made. Find me in app/assets/application.js.coffee.'
+NProgress.configure showSpinner: false

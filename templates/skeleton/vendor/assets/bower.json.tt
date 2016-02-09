@@ -14,7 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "3.3.5",
+    "bootstrap-sass": "~3.3.6",
+    "mreq-mixins": "~0.0.1",
     "jquery": "~1.11.3"
   }
 }
