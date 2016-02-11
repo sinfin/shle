@@ -28,11 +28,15 @@ module Thumbnails
     end
   end
 
-  def reset_thumbnails
-    self.thumbnail_sizes = {} if photo_uid_changed?
+  def landscape?
+    photo.present? && photo.width >= photo.height
   end
 
   private
+
+  def reset_thumbnails
+    self.thumbnail_sizes = {} if photo_uid_changed?
+  end
 
   def compute_sizes(size)
     thumbnail = photo.thumb(size, format: :jpg).encode('jpg', '-quality 85')
