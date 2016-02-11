@@ -1,0 +1,10 @@
+class LeadMailer < ApplicationMailer
+  layout false
+
+  def notification_email(lead)
+    @lead = lead
+    mail(to: 'info@<%= primary_domain %>', subject: '<%= primary_domain %> lead', from: lead.email) do |format|
+      format.text
+    end
+  end
+end

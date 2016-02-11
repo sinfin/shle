@@ -11,3 +11,10 @@ $nprogress-color: #29d !default
 @import 'nprogress-bootstrap'
 @import 'mreq-mixins/mreq'
 //////////////////////
+
+//////////////////////
+// modules
+
+@import 'modules/sticky_footer'
+@import 'modules/lead_form'
+

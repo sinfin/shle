@@ -4,6 +4,8 @@
 #= require nprogress
 #= require nprogress-turbolinks
 #
+#= require lead_form
+#
 #= require ./assets
 #
 #= require_self

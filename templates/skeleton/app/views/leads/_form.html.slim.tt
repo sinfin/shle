@@ -1,0 +1,25 @@
+= form_for @lead || Lead.new, url: leads_path, html: { class: "<%= app_name[0] %>-lead-form #{did_send ? '<%= app_name[0] %>-lead-form-sent' : ''}" }, remote: true do |form|
+
+  = hidden_field_tag :authenticity_token, form_authenticity_token
+
+  fieldset
+    .row
+      .col-md-5
+        .form-group
+          = form.text_field :name, type: "text", class: "form-control <%= app_name[0] %>-lead-input <%= app_name[0] %>-lead-name", placeholder: I18n.t('form.placeholders.name')
+
+        .form-group
+          = form.text_field :email, type: "email", class: "form-control <%= app_name[0] %>-lead-input <%= app_name[0] %>-lead-email", required:true, placeholder: I18n.t('form.placeholders.email')
+
+        .form-group
+          = form.text_field :phone, type: "text", class: "form-control <%= app_name[0] %>-lead-input <%= app_name[0] %>-lead-phone", placeholder: I18n.t('form.placeholders.phone')
+
+      .col-md-7
+        = form.text_area :note, class: "form-control <%= app_name[0] %>-lead-textarea", placeholder: I18n.t('form.placeholders.note')
+
+    .<%= app_name[0] %>-submit
+      button.<%= app_name[0] %>-simple-btn type="submit"
+        = I18n.t('form.submit')
+
+    .<%= app_name[0] %>-did-submit
+      = I18n.t('form.lead_submitted')

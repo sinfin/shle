@@ -30,6 +30,15 @@ cs:
       text_line_1: 'Omlouváme se, ale něco se rozbilo.'
       text_line_2: 'Zkuste přejít na homepage, nebo se vraťte později.'
 
+  form:
+    submit: Odeslat
+    placeholders:
+      name: Jméno
+      email: E-mail
+      phone: Telefon
+      note: Vaše zpráva
+    lead_submitted: Děkujeme za zaslání vaší zprávy!
+
   cookie_consent:
     message: Při poskytování služeb nám pomáhají soubory cookie. Používáním naších služeb vyjadřujete souhlas s naším používáním souborů cookie.
     dismiss: OK

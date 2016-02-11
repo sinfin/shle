@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-
   # Localized routes
-  scope "/:locale", locale: /cs|en/ do
-    get '/', to: "home#index"
-    # resources :foobars
+  scope '/:locale', locale: /cs|en/ do
+    get '/', to: 'home#index'
+
+    resources :leads
   end
 
   root 'home#index'
@@ -17,5 +17,4 @@ Rails.application.routes.draw do
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
   end
-
 end

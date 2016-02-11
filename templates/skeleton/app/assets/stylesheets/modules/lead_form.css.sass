@@ -1,0 +1,11 @@
+.#{$prefix}lead-form
+  .#{$prefix}lead-textarea
+    resize: vertical
+  .#{$prefix}did-submit
+    +topleft(10px)
+    display: none
+  &.#{$prefix}lead-form-sent
+    .#{$prefix}did-submit
+      display: block
+    .form-control, .#{$prefix}submit
+      visibility: hidden

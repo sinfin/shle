@@ -30,6 +30,15 @@ en:
       text_line_1: "We're sorry, but something's broken down."
       text_line_2: Try the homepage or return later.
 
+  form:
+    submit: Submit
+    placeholders:
+      name: Name
+      email: E-mail
+      phone: Phone
+      note: The message
+    lead_submitted: Thanks for sending us a message!
+
   cookie_consent:
     message: This website uses cookies to ensure you get the best experience on our website.
     dismiss: Got it!
