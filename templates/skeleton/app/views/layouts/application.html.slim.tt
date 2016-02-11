@@ -7,12 +7,22 @@ html lang=I18n.locale
     title = (@title || '') + "#{' | ' unless @title.blank?}"
 
     meta name="viewport" content="width=device-width, initial-scale=1"
+    meta name="description" content=I18n.t('meta.description')
+
+    link rel="manifest" href="/manifest.json"
+    link rel="icon" href="/apple-touch-icon.png"
+    link rel="shortcut icon" href="/favicon.ico"
 
     = stylesheet_link_tag 'application', media: 'all'
 
   body
-    section#content
+
+    = render partial: 'partials/header'
+
+    #<%= app_name[0] %>-body
       == yield
+
+    = render partial: 'partials/footer'
 
     = render partial: 'partials/ga'
     = render partial: 'partials/browser_update'

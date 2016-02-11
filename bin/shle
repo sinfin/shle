@@ -6,8 +6,7 @@ $LOAD_PATH << source_path
 
 require 'shle'
 
-
-templates_root = File.expand_path(File.join("..", "templates"), File.dirname(__FILE__))
+templates_root = File.expand_path(File.join('..', 'templates'), File.dirname(__FILE__))
 Shle::AppGenerator.source_root templates_root
 Shle::AppGenerator.source_paths << Rails::Generators::AppGenerator.source_root << templates_root
 

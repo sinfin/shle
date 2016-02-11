@@ -1,4 +1,6 @@
 //////////////////////
+// prefix
+$prefix: '<%= app_name[0] %>-'
 // nprogress-rails
 $nprogress-color: #29d !default
 //////////////////////

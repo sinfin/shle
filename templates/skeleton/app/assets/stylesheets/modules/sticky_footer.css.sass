@@ -1,0 +1,34 @@
+html
+  height: 100%
+
+body
+  +flex-display
+  flex-direction: column
+  height: 100%
+
+body > *
+  +flex-flex(none)
+
+body > ##{$prefix}body
+  +flex-flex(1 0 auto)
+
+##{$prefix}body
+  padding: var(--space) var(--space) 0
+  width: 100%
+  &:after
+    content: '\00a0'
+    display: block
+    margin-top: var(--space)
+    height: 0px
+    visibility: hidden
+
+@media (--break-lg)
+  ##{$prefix}body
+    padding-top: var(--space-lg)
+    &:after
+      margin-top: var(--space-lg)
+
+##{$prefix}body--full
+  padding: 0
+  &:after
+    content: none

@@ -1,0 +1,15 @@
+{
+  "name": "<%= app_name %>",
+  "icons": {
+    "144": "apple-touch-icon-144x144.png",
+    "180": "apple-touch-icon-180x180.png",
+    "152": "apple-touch-icon-152x152.png",
+    "120": "apple-touch-icon-120x120.png",
+    "114": "apple-touch-icon-114x114.png",
+    "76": "apple-touch-icon-76x76.png",
+    "72": "apple-touch-icon-72x72.png",
+    "57": "apple-touch-icon-57x57.png"
+  },
+  "start_url": "/",
+  "display": "standalone"
+}
