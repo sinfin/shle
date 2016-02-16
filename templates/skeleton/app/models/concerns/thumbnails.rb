@@ -39,7 +39,7 @@ module Thumbnails
   end
 
   def compute_sizes(size)
-    thumbnail = photo.thumb(size, format: :jpg).encode('jpg', '-quality 85')
+    thumbnail = photo.thumb(size, format: :jpg).encode('jpg', '-quality 90')
     {
       uid: thumbnail.store,
       signature: thumbnail.signature,
