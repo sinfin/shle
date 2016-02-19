@@ -1,5 +1,5 @@
 #!/bin/bash
-PREFIX=s-ico
+PREFIX=<%= app_name[0] %>-ico
 
 if ! type "glue" > /dev/null; then
   echo 'You need glue to create sprites. See http://glue.readthedocs.org/en/latest/.'
