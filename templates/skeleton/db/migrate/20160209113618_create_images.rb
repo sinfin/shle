@@ -8,6 +8,8 @@ class CreateImages < ActiveRecord::Migration
       t.string :imageable_type
       t.integer :imageable_id
 
+      t.integer :position
+
       t.text :thumbnail_sizes, default: "--- {}\n"
 
       t.timestamps null: false
