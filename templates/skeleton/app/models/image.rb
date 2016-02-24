@@ -1,7 +1,7 @@
 class Image < ActiveRecord::Base
   include Thumbnails
 
-  acts_as_list scope: [:owner_id, :owner_type], top_of_list: 0
+  acts_as_list scope: [:imageable_id, :imageable_type], top_of_list: 0
 
   # Relations
   belongs_to :imageable, polymorphic: true
