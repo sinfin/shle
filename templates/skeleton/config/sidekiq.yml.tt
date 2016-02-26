@@ -8,3 +8,4 @@ production:
   - [ <%= app_name %>_critical, 4 ]
   - [ <%= app_name %>_default, 2 ]
   - [ <%= app_name %>_slow, 1 ]
+  - [ <%= app_name %>_mailers, 1 ]
