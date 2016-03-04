@@ -61,10 +61,10 @@ makeSprites 2
 
 (
   cd app/assets/stylesheets
-  cat sprites@1x.scss sprites@2x.scss > sprites.css.scss
+  cat sprites@1x.scss sprites@2x.scss > sprites.scss
   rm sprites@1x.scss sprites@2x.scss
 )
 
 rm tmp/glue*
-sed -i "s|url('../images/|asset-url('|g" app/assets/stylesheets/sprites.css.scss
-sed -i '/\/\*placeholder\*\//d' app/assets/stylesheets/sprites.css.scss
+sed -i "s|url('../images/|asset-url('|g" app/assets/stylesheets/sprites.scss
+sed -i '/\/\*placeholder\*\//d' app/assets/stylesheets/sprites.scss
