@@ -1,16 +1,18 @@
 # encoding: utf-8
-module Thumbnails
+module Attachments
   extend ActiveSupport::Concern
 
   included do
     serialize :thumbnail_sizes, Hash
-    dragonfly_accessor :photo
+    dragonfly_accessor :attachment
+    validates :attachment, presence: true
     before_validation :reset_thumbnails
   end
 
   # User w_x_h = 400x250# or similar
   #
   def thumb(w_x_h)
+    fail 'You can only thumbnail images.' unless has_attribute? 'thumbnail_sizes'
     if thumbnail_sizes[w_x_h]
       ret = OpenStruct.new(thumbnail_sizes[w_x_h])
       ret.url = Dragonfly.app.remote_url_for(ret.uid)
@@ -29,17 +31,20 @@ module Thumbnails
   end
 
   def landscape?
-    photo.present? && photo.width >= photo.height
+    fail 'You can only thumbnail images.' unless has_attribute? 'thumbnail_sizes'
+    attachment.present? && attachment.width >= attachment.height
   end
 
   private
 
   def reset_thumbnails
+    return unless has_attribute? 'thumbnail_sizes'
     self.thumbnail_sizes = {} if photo_uid_changed?
   end
 
   def compute_sizes(size)
-    thumbnail = photo.thumb(size, format: :jpg).encode('jpg', '-quality 90')
+    fail 'You can only thumbnail images.' unless has_attribute? 'thumbnail_sizes'
+    thumbnail = attachment.thumb(size, format: :jpg).encode('jpg', '-quality 90')
     {
       uid: thumbnail.store,
       signature: thumbnail.signature,

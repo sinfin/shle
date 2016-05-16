@@ -2,8 +2,8 @@ class CreateImages < ActiveRecord::Migration
   def change
     create_table :images do |t|
       t.string :caption
-      t.string :photo_uid
-      t.string :photo_name
+      t.string :attachment_uid
+      t.string :attachment_name
 
       t.string :imageable_type
       t.integer :imageable_id

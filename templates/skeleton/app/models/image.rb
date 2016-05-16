@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  include Thumbnails
+  include Attachments
 
   acts_as_list scope: [:imageable_id, :imageable_type], top_of_list: 0
 
