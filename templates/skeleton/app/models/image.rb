@@ -12,6 +12,6 @@ class Image < ActiveRecord::Base
   private
 
   def mark_for_destruction_if_blank
-    mark_for_destruction if photo_uid.blank? && photo.blank?
+    mark_for_destruction if attachment_uid.blank? && attachment.blank?
   end
 end
