@@ -1,17 +1,10 @@
-class Image < ActiveRecord::Base
-  include Attachments
+class Image < Attachment
+  include Thumbnails
 
-  acts_as_list scope: [:imageable_id, :imageable_type], top_of_list: 0
+  VALID_FORMATS = %i{jpeg jpg png bmp svg}
 
-  # Relations
-  belongs_to :imageable, polymorphic: true
-
-  # Validations
-  before_validation :mark_for_destruction_if_blank
-
-  private
-
-  def mark_for_destruction_if_blank
-    mark_for_destruction if attachment_uid.blank? && attachment.blank?
-  end
+  validates_property :format, of: :attachment, in: VALID_FORMATS,
+                     case_sensitive: false,
+                     message: I18n.t('dragonfly.invalid_format', formats: VALID_FORMATS.join(', ')),
+                     if: :attachment_changed?
 end
