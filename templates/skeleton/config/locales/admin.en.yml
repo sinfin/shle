@@ -1,0 +1,11 @@
+en:
+  admin:
+    hints:
+      slug: 'Optional, gets set on creation. Caution, changing this might break URLs.'
+      published: 'Display on website.'
+      featured: 'Display on homepage.'
+      code: 'System code. Caution, changing this might break some website layouts.'
+      menu_link: 'Menu link text. When empty, will be hidden from menu.'
+      fund_menu_link: 'Shorter title version. When present, is displayed in the sidebar instead of the title.'
+    labels:
+      published: 'Published?'

@@ -1,5 +1,5 @@
 module MarkdownHelper
-  def markdown(text)
+  def markdown(text, no_blocks = false)
     render_options = {
       # will remove from the output HTML tags inputted by user
       # filter_html:     true,
@@ -16,10 +16,11 @@ module MarkdownHelper
       # will remove <style> tags from output
       # no_styles: true
       # generate links for only safe protocols
-      safe_links_only: true
+      safe_links_only: true,
+      with_toc_data: true
       # and more ... (prettify, with_toc_data, xhtml)
     }
-    renderer = Redcarpet::Render::HTML.new(render_options)
+    renderer = no_blocks ? RedsideRenderNoParagraphs.new(render_options) : RedsideRenderHtml.new(render_options)
 
     extensions = {
       #will parse links without need of enclosing them

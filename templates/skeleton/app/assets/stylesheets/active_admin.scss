@@ -2,8 +2,4 @@
 
 @import "active_admin/mixins";
 @import "active_admin/base";
-
-// has_one using has_many - hide the add button
-.has_one_wrap {
-  fieldset ~ a.button.has_many_add, ~ a.button.has_many_add { display: none; }
-}
+@import "active_admin/sinfin";
