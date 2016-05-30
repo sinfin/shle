@@ -1,7 +1,7 @@
 module ContentPartVariants
   extend ActiveSupport::Concern
 
-  VARIANTS = %w(default people partners benefits funds).freeze
+  VARIANTS = %w(default).freeze
 
   included do
     validates :variant,
@@ -22,14 +22,10 @@ module ContentPartVariants
   end
 
   def variant_data
-    case variant
-    when 'people'
-      Person.published.ordered
-    when 'partners'
-      Partner.published.ordered
-    when 'funds'
-      Fund.published.ordered
-    end
+    # case variant
+    # when 'people'
+    #   Person.published.ordered
+    # end
   end
 
   def content_titles(max_level)
@@ -38,8 +34,6 @@ module ContentPartVariants
       return nil if text.blank?
       pattern = /^\s*\#{1,#{max_level}}([^#\n]+)/
       text_titles = text.scan(pattern).flatten.map(&:strip)
-    when 'funds'
-      variant_data.map(&:title)
     else
       [I18n.t("content_parts.#{variant}.heading", default: nil)]
     end

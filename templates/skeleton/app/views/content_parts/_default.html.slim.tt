@@ -1,0 +1,11 @@
+- if content_part.images.length == 1
+  .<%= app_name[0] %>-content-image
+    = img_tag_dragonfly content_part.images.first, '850x800'
+- elsif content_part.images.length > 1
+  .<%= app_name[0] %>-content-gallery
+    ul
+      - content_part.images.each do |image|
+        li
+          = img_tag_dragonfly image, '850x800', { alt: image.caption }
+
+= markdown content_part.text
