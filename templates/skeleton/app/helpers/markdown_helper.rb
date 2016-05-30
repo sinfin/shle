@@ -20,7 +20,7 @@ module MarkdownHelper
       with_toc_data: true
       # and more ... (prettify, with_toc_data, xhtml)
     }
-    renderer = no_blocks ? RedsideRenderNoParagraphs.new(render_options) : RedsideRenderHtml.new(render_options)
+    renderer = no_blocks ? ShleMarkdownRenderHtmlNoParagraphs.new(render_options) : ShleMarkdownRenderHtml.new(render_options)
 
     extensions = {
       #will parse links without need of enclosing them
