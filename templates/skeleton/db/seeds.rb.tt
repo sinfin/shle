@@ -1,6 +1,6 @@
 User.find_or_create_by(email: 'admin@sinfin.cz') do |user|
-  user.password = '<%= fetch_env "SHLE_DEFAULT_PASSWORD" %>'
-  user.password_confirmation = '<%= fetch_env "SHLE_DEFAULT_PASSWORD" %>'
+  user.password = ENV['SEED_ADMIN_PASSWORD']
+  user.password_confirmation = ENV['SEED_ADMIN_PASSWORD']
   user.save!
 end
 
