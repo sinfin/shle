@@ -2,6 +2,5 @@
   .row
     .col-sm-9
       = @node.title
-        = render partial: "content_parts/index", locals: { contentable: @node }
-        = render_file_attachments @node
-
+      = render partial: "content_parts/index", locals: { contentable: @node }
+      = render_file_attachments @node

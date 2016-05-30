@@ -18,3 +18,8 @@ $nprogress-color: #29d !default
 @import 'modules/sticky_footer'
 @import 'modules/lead_form'
 
+//////////////////////
+// pages
+
+@import 'pages/home'
+
