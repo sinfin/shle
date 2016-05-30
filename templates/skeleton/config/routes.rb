@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get '/', to: 'home#index'
 
     resources :leads
+    get '/:id', to: 'pages#show', as: :page, constraints: { id: /[\w-]+/, format: :html }
   end
 
   root 'home#index'
