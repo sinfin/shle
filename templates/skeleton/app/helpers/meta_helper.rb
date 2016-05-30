@@ -23,7 +23,7 @@ module MetaHelper
   end
 
   def meta_og_image
-    image_url 'redside_og_logo.png'
+    image_url 'og_logo.png'
   end
 
   def meta_og_site_name

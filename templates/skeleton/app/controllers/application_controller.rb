@@ -23,4 +23,8 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }.merge options
   end
 
+  before_action :menu_pages
+  def menu_pages
+    @menu_pages = Page.in_menu
+  end
 end

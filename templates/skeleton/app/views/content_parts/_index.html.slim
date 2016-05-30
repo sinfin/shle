@@ -1,0 +1,5 @@
+- custom_content_parts = false unless defined?(custom_content_parts)
+- content_parts = custom_content_parts ? custom_content_parts : contentable.content_parts
+
+- content_parts.ordered.each do |cp|
+  = render_content_part cp
