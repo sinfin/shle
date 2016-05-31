@@ -82,8 +82,7 @@ group :development, :test do
 end
 
 group :development, :production do
-  gem 'unicorn'
-  gem 'unicorn-worker-killer'
+  gem 'puma'
 end
 
 group :staging, :production do
