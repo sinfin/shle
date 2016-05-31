@@ -57,7 +57,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'unicorn:start_or_restart'
+      invoke :'app:start_or_restart'
       invoke :'whenever:update'
     end
   end
@@ -109,7 +109,7 @@ namespace :install do
 end
 
 
-namespace :unicorn do
+namespace :app do
   task :start do
     queue "sudo start #{appname}"
   end
@@ -123,10 +123,10 @@ namespace :unicorn do
 
     if status.strip == "#{appname} stop/waiting"
       puts 'Cold start triggered'
-      invoke :'unicorn:start'
+      invoke :'app:start'
     else
       puts 'Restart triggered'
-      invoke :'unicorn:restart'
+      invoke :'app:restart'
     end
   end
 
@@ -141,8 +141,8 @@ namespace :log do
     queue! "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
   end
 
-  task :unicorn do
-    queue! "tail -f #{deploy_to}/#{shared_path}/log/unicorn.log"
+  task :puma do
+    queue! "tail -f #{deploy_to}/#{shared_path}/log/puma_error.log"
   end
 
   task :nginx do
