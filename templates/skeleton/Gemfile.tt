@@ -22,7 +22,7 @@ gem 'redcarpet'
 gem 'traco'
 gem 'dotenv-rails'
 gem 'friendly_id', '~> 5.1.0'
-gem 'sidekiq'
+gem 'sidekiq', '< 5'
 gem 'sinatra', :require => nil
 gem 'activeadmin', github: 'activeadmin'
 gem 'activeadmin-sortable', git: 'https://github.com/sinfin/activeadmin-sortable', branch: 'master'
