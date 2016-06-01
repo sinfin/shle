@@ -2,6 +2,7 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
+require 'mina/whenever'
 require 'active_support'
 require 'fileutils'
 require 'yaml'
@@ -16,7 +17,7 @@ set :repository, 'git@bitbucket.org:Sinfin/<%= app_name %>.git'
 
 
 task :production do
-  set :domain, droplet_config.fetch(:ipv4)
+  set :domain, '<%= primary_domain %>'
   set :rails_env, 'production'
   set :deploy_to, "/home/rails/#{appname}"
   set :branch, 'master'
@@ -25,7 +26,7 @@ end
 
 task :staging do
   set :rails_env, 'staging'
-  set :domain, "staging.sinfin.io"
+  set :domain, "<%= app_name %>.staging.sinfin.io"
   set :deploy_to, "/home/rails/#{appname}"
   set :branch, 'master'
 end
@@ -56,8 +57,8 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'unicorn:start_or_restart'
-      queue "bundle exec whenever -w --set environment=#{rails_env}"
+      invoke :'app:start_or_restart'
+      invoke :'whenever:update'
     end
   end
 end
@@ -108,7 +109,7 @@ namespace :install do
 end
 
 
-namespace :unicorn do
+namespace :app do
   task :start do
     queue "sudo start #{appname}"
   end
@@ -122,10 +123,10 @@ namespace :unicorn do
 
     if status.strip == "#{appname} stop/waiting"
       puts 'Cold start triggered'
-      invoke :'unicorn:start'
+      invoke :'app:start'
     else
       puts 'Restart triggered'
-      invoke :'unicorn:restart'
+      invoke :'app:restart'
     end
   end
 
@@ -140,8 +141,8 @@ namespace :log do
     queue! "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
   end
 
-  task :unicorn do
-    queue! "tail -f #{deploy_to}/#{shared_path}/log/unicorn.log"
+  task :puma do
+    queue! "tail -f #{deploy_to}/#{shared_path}/log/puma_error.log"
   end
 
   task :nginx do

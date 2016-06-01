@@ -1,0 +1,4 @@
+ul
+  - @menu_pages.each do |page|
+    li.r-li
+      = link_to_active page.menu_link, page_path(page)

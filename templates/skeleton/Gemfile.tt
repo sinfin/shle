@@ -13,6 +13,7 @@ gem 'kaminari'
 gem 'devise'
 gem 'devise-i18n'
 gem 'rails-i18n'
+gem 'i18n-tasks'
 gem 'ancestry'
 gem 'acts_as_list'
 gem 'sitemap_generator', '~> 5.0.5'
@@ -21,7 +22,7 @@ gem 'redcarpet'
 gem 'traco'
 gem 'dotenv-rails'
 gem 'friendly_id', '~> 5.1.0'
-gem 'sidekiq'
+gem 'sidekiq', '< 5'
 gem 'sinatra', :require => nil
 gem 'activeadmin', github: 'activeadmin'
 gem 'activeadmin-sortable', git: 'https://github.com/sinfin/activeadmin-sortable', branch: 'master'
@@ -40,6 +41,7 @@ gem 'jquery-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'bower-rails', '~> 0.9.2'
 gem 'momentjs-rails'
+gem 'validate_url'
 
 # Uploads and S3
 gem 'mini_magick'
@@ -80,8 +82,7 @@ group :development, :test do
 end
 
 group :development, :production do
-  gem 'unicorn'
-  gem 'unicorn-worker-killer'
+  gem 'puma'
 end
 
 group :staging, :production do

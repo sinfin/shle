@@ -13,7 +13,7 @@ class GenerateThumbnailJob < ActiveJob::Base
   def compute_sizes(image, size)
     return if image.thumbnail_sizes[size]
 
-    thumbnail = image.photo.thumb(size, format: :jpg).encode('jpg', '-quality 85')
+    thumbnail = image.attachment.thumb(size, format: :jpg).encode('jpg', '-quality 85')
     {
       uid: thumbnail.store,
       signature: thumbnail.signature,

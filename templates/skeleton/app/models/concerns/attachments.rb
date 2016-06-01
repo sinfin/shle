@@ -1,32 +1,29 @@
 # encoding: utf-8
-module Thumbnails
+module Attachments
   extend ActiveSupport::Concern
 
   included do
     serialize :thumbnail_sizes, Hash
+    dragonfly_accessor :attachment
+    validates :attachment, presence: true
     before_validation :reset_thumbnails
   end
 
   # User w_x_h = 400x250# or similar
   #
   def thumb(w_x_h)
-    fail_for_non_images
+    fail 'You can only thumbnail images.' unless has_attribute? 'thumbnail_sizes'
     if thumbnail_sizes[w_x_h]
       ret = OpenStruct.new(thumbnail_sizes[w_x_h])
       ret.url = Dragonfly.app.remote_url_for(ret.uid)
       ret
     else
-      if attachment.mime_type =~ /svg/
-        url = attachment.url
-      else
-        GenerateThumbnailJob.perform_later(self, w_x_h)
-        url = "http://dummyimage.com/#{w_x_h}/FFF/000.png&text=Generating…"
-      end
+      GenerateThumbnailJob.perform_later(self, w_x_h)
       sizes = w_x_h.split('x')
       OpenStruct.new(
         uid: nil,
         signature: nil,
-        url: url,
+        url: "http://dummyimage.com/#{w_x_h}/FFF/000.png&text=Generating…",
         width: sizes[0].to_i,
         height: sizes[1].to_i
       )
@@ -34,19 +31,19 @@ module Thumbnails
   end
 
   def landscape?
-    fail_for_non_images
+    fail 'You can only thumbnail images.' unless has_attribute? 'thumbnail_sizes'
     attachment.present? && attachment.width >= attachment.height
   end
 
   private
 
   def reset_thumbnails
-    fail_for_non_images
-    self.thumbnail_sizes = {} if attachment_uid_changed?
+    return unless has_attribute? 'thumbnail_sizes'
+    self.thumbnail_sizes = {} if photo_uid_changed?
   end
 
   def compute_sizes(size)
-    fail_for_non_images
+    fail 'You can only thumbnail images.' unless has_attribute? 'thumbnail_sizes'
     thumbnail = attachment.thumb(size, format: :jpg).encode('jpg', '-quality 90')
     {
       uid: thumbnail.store,
@@ -55,9 +52,5 @@ module Thumbnails
       width: thumbnail.width,
       height: thumbnail.height
     }
-  end
-
-  def fail_for_non_images
-    fail 'You can only thumbnail images.' unless has_attribute? 'thumbnail_sizes'
   end
 end

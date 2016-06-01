@@ -1,0 +1,35 @@
+=sort-handle-style
+  background: asset-url('admin/move.png') center center no-repeat
+  width: 50px
+  height: 25px
+  display: block
+  text-indent: -9999px
+  cursor: move
+
+// has_one using has_many - hide the add button
+.has_one_wrap
+  fieldset ~ a.button.has_many_add, ~ a.button.has_many_add
+    display: none
+
+// variants - hide fields if non-default
+.variant-not-default
+  .input.optional, .has_many_container
+    display: none
+
+// style the drag & drop icon
+form
+  fieldset > ol > li fieldset.has_many_fields ol
+    padding-right: 50px
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  .has_many_container .handle
+    +sort-handle-style
+
+table.index_table
+  .activeadmin-sortable
+    width: 50px
+    padding-left: 0
+    padding-right: 0
+    .handle
+      +sort-handle-style

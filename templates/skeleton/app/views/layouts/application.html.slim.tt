@@ -4,10 +4,15 @@ html lang=I18n.locale
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
 
-    title = (@title || '') + "#{' | ' unless @title.blank?}"
+    title = meta_title
 
     meta name="viewport" content="width=device-width, initial-scale=1"
-    meta name="description" content=I18n.t('meta.description')
+    meta name="description" content=meta_description
+
+    meta property="og:title"        content=meta_og_title
+    meta property="og:description"  content=meta_og_description
+    meta property="og:image"        content=meta_og_image
+    meta property="og:site_name"    content=meta_og_site_name
 
     link rel="manifest" href="/manifest.json"
     link rel="icon" href="/apple-touch-icon.png"
@@ -15,8 +20,13 @@ html lang=I18n.locale
 
     = stylesheet_link_tag 'application', media: 'all'
 
-  body
+    = render partial: 'partials/ga'
+    = render partial: 'partials/browser_update'
+    = render partial: 'partials/cookie_consent'
 
+    = javascript_include_tag 'application'
+
+  body class=body_classes
     = render partial: 'partials/header'
 
     #<%= app_name[0] %>-body
@@ -24,8 +34,4 @@ html lang=I18n.locale
 
     = render partial: 'partials/footer'
 
-    = render partial: 'partials/ga'
-    = render partial: 'partials/browser_update'
-    = render partial: 'partials/cookie_consent'
-
-    = javascript_include_tag 'application'
+    #<%= app_name[0] %>-mq-xs.visible-xs-block

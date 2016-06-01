@@ -1,0 +1,11 @@
+cs:
+  admin:
+    hints:
+      slug: 'Není potřeba zadávat, vyplní se samo dle názvu. Pozor, při změně mohou přestat fungovat již existující odkazy.'
+      published: 'Zobrazovat na webu.'
+      featured: 'Zobrazovat na homepage.'
+      code: 'Systémový kód stránky. Pozor, při změně se může stránka přestat zobrazovat správně.'
+      menu_link: 'Text odkazu v menu. Pokud nevyplněn, nebude se zobrazovat v menu.'
+      fund_menu_link: 'Kratší verze titulku. Pokud vyplněno, zobrazuje se v postranním menu místo titulku.'
+    labels:
+      published: 'Veřejný?'
