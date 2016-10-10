@@ -3,4 +3,14 @@ class ShleMarkdownRenderHtml < Redcarpet::Render::HTML
     id = I18n.transliterate(text).downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
     %Q{<h#{header_level} id="#{id}">#{text}</h#{header_level}>}.html_safe
   end
+
+  def list(text, list_type)
+    case list_type
+    when :ordered
+      tag = 'ol'
+    else
+      tag = 'ul'
+    end
+    %{<#{tag} class="<%= app_name[0] %>-content-list">#{text}</#{tag}>}
+  end
 end
