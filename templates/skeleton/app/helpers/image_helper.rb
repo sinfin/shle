@@ -27,4 +27,13 @@ module ImageHelper
       img_tag_retina(image.thumb(size).url, image.thumb(retina_size).url, html_options)
     end
   end
+
+  def smart_img(path, html_options = {})
+    normal = URI.encode(image_path(path))
+    retina = URI.encode(image_path(path.gsub(/(\.\w+)$/, '@2x\1')))
+    html_options.merge!({
+      srcset: "#{normal} 1x, #{retina} 2x"
+    })
+    image_tag normal, html_options
+  end
 end
